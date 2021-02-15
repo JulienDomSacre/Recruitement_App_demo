@@ -1,4 +1,7 @@
 package com.choala.recruitementappdemo.data.remote.response
 
-class AlbumResponse {
-}
+data class AlbumResponse(
+    val userId: Int,
+    val id: Int,
+    val title: String
+)
