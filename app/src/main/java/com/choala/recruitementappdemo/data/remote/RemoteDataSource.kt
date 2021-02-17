@@ -1,6 +1,8 @@
 package com.choala.recruitementappdemo.data.remote
 
-import com.choala.recruitementappdemo.data.remote.api.*
+import com.choala.recruitementappdemo.data.remote.api.AlbumService
+import com.choala.recruitementappdemo.data.remote.api.PhotoService
+import com.choala.recruitementappdemo.data.remote.api.UserService
 import com.choala.recruitementappdemo.data.remote.response.AlbumResponse
 import com.choala.recruitementappdemo.data.remote.response.PhotoResponse
 import com.choala.recruitementappdemo.data.remote.response.UserResponse
@@ -25,7 +27,6 @@ class RemoteDataSource(
                     emit(ApiResponse.Success(response))
                 else
                     emit(ApiResponse.Error(NetworkError.EmptyResource))
-
             } catch (e: Exception) {
                 emit(ApiResponse.Error(mapException(e)))
             }
@@ -40,7 +41,6 @@ class RemoteDataSource(
                     emit(ApiResponse.Success(response))
                 else
                     emit(ApiResponse.Error(NetworkError.EmptyResource))
-
             } catch (e: Exception) {
                 emit(ApiResponse.Error(mapException(e)))
             }
@@ -55,7 +55,6 @@ class RemoteDataSource(
                     emit(ApiResponse.Success(response))
                 else
                     emit(ApiResponse.Error(NetworkError.EmptyResource))
-
             } catch (e: Exception) {
                 emit(ApiResponse.Error(mapException(e)))
             }

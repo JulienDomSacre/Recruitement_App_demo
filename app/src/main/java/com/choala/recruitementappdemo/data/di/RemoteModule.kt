@@ -4,6 +4,7 @@ import com.choala.recruitementappdemo.data.remote.RemoteDataSource
 import com.choala.recruitementappdemo.data.remote.api.AlbumService
 import com.choala.recruitementappdemo.data.remote.api.PhotoService
 import com.choala.recruitementappdemo.data.remote.api.UserService
+import com.choala.recruitementappdemo.data.remote.mapper.RemoteMapper
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -66,11 +67,13 @@ val remoteModule = module {
         get<Retrofit>().create(UserService::class.java)
     }
 
-    single{
+    single {
         RemoteDataSource(
             userService = get(),
             albumService = get(),
             photoService = get()
         )
     }
+
+    factory { RemoteMapper() }
 }
