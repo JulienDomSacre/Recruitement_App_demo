@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Recruitement App demo</string>
+    <string name="user_error_network_title">Pas d\'internet</string>
+    <string name="user_error_network_message">Veillez vérifier que vous êtes connecté en Wifi ou en data.</string>
+    <string name="user_error_network_button">Réessayer</string>
+    <string name="user_error_network_header">Erreur réseaux</string>
+
+    <string name="user_error_timeout_title">Trop long!</string>
+    <string name="user_error_timeout_message">La demande met trop de temps à arrivé, vérifié votre connection.</string>
+    <string name="user_error_timeout_button">Réessayer</string>
+    <string name="user_error_timeout_header">Erreur réseaux</string>
+
+    <string name="user_error_empty_title">Pas d\'information</string>
+    <string name="user_error_empty_message">Il y a un problème chez nous, nous travaillons déjà à sa résolution. Veuillez nous excusez pour la gêne occasionné.</string>
+    <string name="user_error_empty_button">Revenir plus tard</string>
+    <string name="user_error_empty_header">Problème serveur</string>
+
+    <string name="user_error_unknow_title">Oops il y a un soucis</string>
+    <string name="user_error_unknow_message">Il y a un problème chez nous, nous travaillons déjà à sa résolution. Veuillez nous excusez pour la gêne occasionné.</string>
+    <string name="user_error_unknow_button">Revenir plus tard</string>
+    <string name="user_error_unknow_header">Erreur inconnue</string>
+
 </resources>
