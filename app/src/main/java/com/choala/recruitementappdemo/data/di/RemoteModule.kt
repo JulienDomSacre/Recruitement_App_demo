@@ -32,7 +32,7 @@ val remoteModule = module {
         val client = OkHttpClient.Builder()
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
-        if (BuildConfig.DEBUG)
+        //if (BuildConfig.DEBUG)
             client.addInterceptor(get<HttpLoggingInterceptor>())
         client.build()
     }

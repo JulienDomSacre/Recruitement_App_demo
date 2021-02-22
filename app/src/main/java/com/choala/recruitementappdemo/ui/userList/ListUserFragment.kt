@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.map
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.choala.recruitementappdemo.R
 import com.choala.recruitementappdemo.ui.common.ViewState
 import com.choala.recruitementappdemo.ui.userList.model.ListUserContentUiModel
@@ -18,11 +18,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListUserFragment : Fragment(R.layout.fragment_userlist) {
     private val viewModel: ListUserViewModel by viewModel()
-    private lateinit var recyclerView: RecyclerView
-
     private val viewAdapter = ListUserAdapter { userSelected ->
         userSelected.id.let {
-            //TODO -> start fragment album list with user id
+            val toAlbum = ListUserFragmentDirections.actionListUserFragmentToListAlbumFragment(it)
+            findNavController().navigate(toAlbum)
         }
     }
 
@@ -82,7 +81,7 @@ class ListUserFragment : Fragment(R.layout.fragment_userlist) {
     }
 
     private fun initRecyclerView() {
-        recyclerView = rv_userList_users.apply {
+        rv_userList_users.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = viewAdapter
         }
