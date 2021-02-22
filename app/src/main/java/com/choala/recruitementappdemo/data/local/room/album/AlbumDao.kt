@@ -2,6 +2,7 @@ package com.choala.recruitementappdemo.data.local.room.album
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.choala.recruitementappdemo.data.local.entity.AlbumEntity
 import kotlinx.coroutines.flow.Flow
@@ -9,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AlbumDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(albumsList: List<AlbumEntity>)
 
     @Query("select * from Album_Table")

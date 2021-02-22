@@ -6,10 +6,8 @@ import com.choala.recruitementappdemo.data.remote.api.UserService
 import com.choala.recruitementappdemo.data.remote.response.AlbumResponse
 import com.choala.recruitementappdemo.data.remote.response.PhotoResponse
 import com.choala.recruitementappdemo.data.remote.response.UserResponse
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import java.io.IOException
 import java.net.SocketTimeoutException
 
@@ -30,7 +28,7 @@ class RemoteDataSource(
             } catch (e: Exception) {
                 emit(ApiResponse.Error(mapException(e)))
             }
-        }.flowOn(Dispatchers.IO)
+        }
     }
 
     fun getAlbumList(userId: Int): Flow<ApiResponse<List<AlbumResponse>>> {
@@ -44,7 +42,7 @@ class RemoteDataSource(
             } catch (e: Exception) {
                 emit(ApiResponse.Error(mapException(e)))
             }
-        }.flowOn(Dispatchers.IO)
+        }
     }
 
     fun getPhotoList(albumId: Int): Flow<ApiResponse<List<PhotoResponse>>> {
@@ -58,7 +56,7 @@ class RemoteDataSource(
             } catch (e: Exception) {
                 emit(ApiResponse.Error(mapException(e)))
             }
-        }.flowOn(Dispatchers.IO)
+        }
     }
 
     private fun mapException(exception: Exception): NetworkError {
