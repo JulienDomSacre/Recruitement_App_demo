@@ -18,5 +18,16 @@
         <argument
             android:name="id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_listAlbumFragment_to_listPhotoFragment"
+            app:destination="@id/listPhotoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listPhotoFragment"
+        android:name="com.choala.recruitementappdemo.ui.photoList.ListPhotoFragment"
+        android:label="ListPhotoFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 </navigation>

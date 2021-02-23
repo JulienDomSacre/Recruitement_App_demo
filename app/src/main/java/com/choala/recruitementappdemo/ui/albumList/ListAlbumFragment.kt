@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.map
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.choala.recruitementappdemo.R
@@ -11,6 +12,7 @@ import com.choala.recruitementappdemo.ui.albumList.model.ListAlbumContentUiModel
 import com.choala.recruitementappdemo.ui.albumList.model.ListAlbumErrorUiModel
 import com.choala.recruitementappdemo.ui.albumList.model.ListAlbumToolBarUiModel
 import com.choala.recruitementappdemo.ui.common.ViewState
+import com.choala.recruitementappdemo.ui.userList.ListUserFragmentDirections
 import com.choala.recruitementappdemo.ui.util.visibilityIsRequested
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_albumlist.*
@@ -21,7 +23,8 @@ class ListAlbumFragment : Fragment(R.layout.fragment_albumlist) {
     private val args: ListAlbumFragmentArgs by navArgs()
     private val viewAdapter = ListAlbumAdapter { albumSelected ->
         albumSelected.id.let {
-            //TODO -> start fragment photo list with album id
+            val toAlbum = ListAlbumFragmentDirections.actionListAlbumFragmentToListPhotoFragment(it)
+            findNavController().navigate(toAlbum)
         }
     }
 
