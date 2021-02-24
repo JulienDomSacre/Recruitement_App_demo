@@ -82,9 +82,7 @@ class ListAlbumViewModel(
 
     companion object {
         val DEFAULT_TOOLBAR = ListAlbumToolBarUiModel(
-            isImageVisible = false,
-            isSearchVisible = false,
-            toolbarTextTitle = AndroidStringWrapper(R.string.app_name)
+            toolbarTextTitle = AndroidStringWrapper(R.string.album_toolbar_title)
         )
     }
 }

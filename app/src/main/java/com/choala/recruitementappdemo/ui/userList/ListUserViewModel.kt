@@ -84,7 +84,7 @@ class ListUserViewModel(
         val DEFAULT_TOOLBAR = ListUserToolBarUiModel(
             isImageVisible = false,
             isSearchVisible = false,
-            toolbarTextTitle = AndroidStringWrapper(R.string.app_name)
+            toolbarTextTitle = AndroidStringWrapper(R.string.user_toolbar_title)
         )
     }
 }

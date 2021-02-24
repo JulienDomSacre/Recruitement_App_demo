@@ -15,9 +15,7 @@ class ListAlbumUiDataMapper {
             ),
             errorUiModel = null,
             toolBarUiModel = ListAlbumToolBarUiModel(
-                isImageVisible = false,
-                isSearchVisible = true,
-                toolbarTextTitle = AndroidStringWrapper(R.string.app_name)
+                toolbarTextTitle = AndroidStringWrapper(R.string.album_toolbar_title)
             )
         )
     }

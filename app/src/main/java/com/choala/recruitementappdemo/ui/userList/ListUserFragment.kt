@@ -1,7 +1,12 @@
 package com.choala.recruitementappdemo.ui.userList
 
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
@@ -25,11 +30,26 @@ class ListUserFragment : Fragment(R.layout.fragment_userlist) {
         }
     }
 
+    private var toolbarMenuIsVisible = true
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         observeUiData()
         viewModel.fetchUsers()
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.user_menu, menu)
+        menu.findItem(R.id.menu_userList_actionSearch).isVisible = toolbarMenuIsVisible
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_userList_actionSearch -> Log.d("toto", "menu touch")
+        }
+        return true
     }
 
     private fun observeUiData() {
@@ -44,7 +64,10 @@ class ListUserFragment : Fragment(R.layout.fragment_userlist) {
     }
 
     private fun setToolbarContent(listUserToolBarUiModel: ListUserToolBarUiModel?) {
-        //TODO("Not yet implemented")
+        val toolbar = (activity as AppCompatActivity).supportActionBar
+        toolbar?.title =
+            listUserToolBarUiModel?.toolbarTextTitle?.getConcatenateString(requireContext())
+        toolbarMenuIsVisible = listUserToolBarUiModel?.isSearchVisible == true
     }
 
     private fun displayListUser(listUserContentUiModel: ListUserContentUiModel?) {

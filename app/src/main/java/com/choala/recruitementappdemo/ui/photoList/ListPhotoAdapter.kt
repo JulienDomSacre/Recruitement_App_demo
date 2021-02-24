@@ -22,7 +22,9 @@ class ListPhotoAdapter : RecyclerView.Adapter<ListPhotoAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.itemImage.load(item.url)
+        holder.itemImage.load(item.url) {
+            placeholder(R.drawable.alert)
+        }
     }
 
     override fun getItemCount(): Int = values.size

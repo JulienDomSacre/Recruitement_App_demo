@@ -82,9 +82,7 @@ class ListPhotoViewModel(
 
     companion object {
         val DEFAULT_TOOLBAR = ListPhotoToolBarUiModel(
-            isImageVisible = false,
-            isSearchVisible = false,
-            toolbarTextTitle = AndroidStringWrapper(R.string.app_name)
+            toolbarTextTitle = AndroidStringWrapper(R.string.photo_toolbar_title)
         )
     }
 }

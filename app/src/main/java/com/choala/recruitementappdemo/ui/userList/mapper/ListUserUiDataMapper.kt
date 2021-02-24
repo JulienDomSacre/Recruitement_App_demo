@@ -8,7 +8,7 @@ import com.choala.recruitementappdemo.ui.userList.model.ListUserToolBarUiModel
 import com.choala.recruitementappdemo.ui.userList.model.ListUserUiModel
 
 class ListUserUiDataMapper {
-    fun mapToUi(data: List<UserModel>): ListUserUiModel{
+    fun mapToUi(data: List<UserModel>): ListUserUiModel {
         return ListUserUiModel(
             contentUiModel = ListUserContentUiModel(
                 listUsers = data
@@ -17,7 +17,7 @@ class ListUserUiDataMapper {
             toolBarUiModel = ListUserToolBarUiModel(
                 isImageVisible = false,
                 isSearchVisible = true,
-                toolbarTextTitle = AndroidStringWrapper(R.string.app_name)
+                toolbarTextTitle = AndroidStringWrapper(R.string.user_toolbar_title)
             )
         )
     }

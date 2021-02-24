@@ -2,6 +2,7 @@ package com.choala.recruitementappdemo.ui.albumList
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
@@ -12,7 +13,6 @@ import com.choala.recruitementappdemo.ui.albumList.model.ListAlbumContentUiModel
 import com.choala.recruitementappdemo.ui.albumList.model.ListAlbumErrorUiModel
 import com.choala.recruitementappdemo.ui.albumList.model.ListAlbumToolBarUiModel
 import com.choala.recruitementappdemo.ui.common.ViewState
-import com.choala.recruitementappdemo.ui.userList.ListUserFragmentDirections
 import com.choala.recruitementappdemo.ui.util.visibilityIsRequested
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_albumlist.*
@@ -47,7 +47,9 @@ class ListAlbumFragment : Fragment(R.layout.fragment_albumlist) {
     }
 
     private fun setToolbarContent(listAlbumToolBarUiModel: ListAlbumToolBarUiModel?) {
-        //TODO("Not yet implemented")
+        val toolbar = (activity as AppCompatActivity).supportActionBar
+        toolbar?.title =
+            listAlbumToolBarUiModel?.toolbarTextTitle?.getConcatenateString(requireContext())
     }
 
     private fun displayListAlbum(listAlbumContentUiModel: ListAlbumContentUiModel?) {
@@ -60,28 +62,27 @@ class ListAlbumFragment : Fragment(R.layout.fragment_albumlist) {
         when (errorContent) {
             ListAlbumErrorUiModel.PageError.NetworkError,
             ListAlbumErrorUiModel.PageError.TimeOutError -> {
-                renderErrorView(errorContent as ListAlbumErrorUiModel.PageError) {
+                val errorData = errorContent as ListAlbumErrorUiModel.PageError
+                Snackbar.make(
+                    const_albumList_container,
+                    errorData.message.getConcatenateString(requireContext()),
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction(errorData.button.getConcatenateString(requireContext())) {
                     viewModel.fetchAlbums(args.id)
-                }
+                }.show()
             }
             ListAlbumErrorUiModel.PageError.EmptyResource,
             ListAlbumErrorUiModel.PageError.UnknownError -> {
-                renderErrorView(errorContent as ListAlbumErrorUiModel.PageError) { activity?.finish() }
+                val errorData = errorContent as ListAlbumErrorUiModel.PageError
+                Snackbar.make(
+                    const_albumList_container,
+                    errorData.message.getConcatenateString(requireContext()),
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction(errorData.button.getConcatenateString(requireContext())) {
+                    activity?.finish()
+                }.show()
             }
         }
-    }
-
-    private fun renderErrorView(
-        pageError: ListAlbumErrorUiModel.PageError,
-        action: (Unit?) -> Unit
-    ) {
-        Snackbar.make(
-            const_albumList_container,
-            pageError.message.getConcatenateString(requireContext()),
-            Snackbar.LENGTH_INDEFINITE
-        ).setAction(pageError.button.getConcatenateString(requireContext())) {
-            action
-        }.show()
     }
 
     private fun updateScreenState(viewState: ViewState) {

@@ -11,8 +11,6 @@ data class ListAlbumUiModel(
 )
 
 data class ListAlbumToolBarUiModel(
-    val isImageVisible: Boolean,
-    val isSearchVisible: Boolean,
     val toolbarTextTitle: AndroidStringWrapper
 )
 
@@ -26,28 +24,28 @@ sealed class ListAlbumErrorUiModel(val headerText: AndroidStringWrapper) {
         val message: AndroidStringWrapper,
         val button: AndroidStringWrapper
     ) : ListAlbumErrorUiModel(header) {
-        object NetworkError : PageError(
-            AndroidStringWrapper(R.string.user_error_network_header),
-            AndroidStringWrapper(R.string.user_error_network_title),
-            AndroidStringWrapper(R.string.user_error_network_message)
+        object NetworkError : ListAlbumErrorUiModel.PageError(
+            AndroidStringWrapper(R.string.generic_error_network_header),
+            AndroidStringWrapper(R.string.generic_error_network_message),
+            AndroidStringWrapper(R.string.generic_error_network_button)
         )
 
-        object TimeOutError : PageError(
-            AndroidStringWrapper(R.string.user_error_timeout_header),
-            AndroidStringWrapper(R.string.user_error_timeout_title),
-            AndroidStringWrapper(R.string.user_error_timeout_message)
+        object TimeOutError : ListAlbumErrorUiModel.PageError(
+            AndroidStringWrapper(R.string.generic_error_timeout_header),
+            AndroidStringWrapper(R.string.generic_error_timeout_message),
+            AndroidStringWrapper(R.string.generic_error_timeout_button)
         )
 
-        object EmptyResource : PageError(
-            AndroidStringWrapper(R.string.user_error_empty_header),
-            AndroidStringWrapper(R.string.user_error_empty_title),
-            AndroidStringWrapper(R.string.user_error_empty_message)
+        object EmptyResource : ListAlbumErrorUiModel.PageError(
+            AndroidStringWrapper(R.string.generic_error_empty_header),
+            AndroidStringWrapper(R.string.generic_error_empty_message),
+            AndroidStringWrapper(R.string.generic_error_empty_button)
         )
 
-        object UnknownError : PageError(
-            AndroidStringWrapper(R.string.user_error_unknow_header),
-            AndroidStringWrapper(R.string.user_error_unknow_title),
-            AndroidStringWrapper(R.string.user_error_unknow_message)
+        object UnknownError : ListAlbumErrorUiModel.PageError(
+            AndroidStringWrapper(R.string.generic_error_unknow_header),
+            AndroidStringWrapper(R.string.generic_error_unknow_message),
+            AndroidStringWrapper(R.string.generic_error_unknow_button)
         )
     }
 }
