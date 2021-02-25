@@ -74,18 +74,14 @@ class Repository(
                         when (it) {
                             is ApiResponse.Error -> emit(mapErrorAlbum(it.error))
                             is ApiResponse.Success -> localAlbumDao.insertAll(it.data.map { albumResponse ->
-                                mapToEntity.mapToAlbumEntity(
-                                    albumResponse
-                                )
+                                mapToEntity.mapToAlbumEntity(albumResponse)
                             })
                         }
                     }
                 } else {
                     emit(
                         ResultState.Success(localAlbums.map { albumEntity ->
-                            mapToModel.mapToAlbumModel(
-                                albumEntity
-                            )
+                            mapToModel.mapToAlbumModel(albumEntity)
                         })
                     )
                 }
