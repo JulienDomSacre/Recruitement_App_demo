@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav"
+    app:startDestination="@id/listUserFragment">
+
+    <fragment
+        android:id="@+id/listUserFragment"
+        android:name="com.choala.recruitementappdemo.ui.userList.ListUserFragment"
+        android:label="ListUserFragment" >
+        <action
+            android:id="@+id/action_listUserFragment_to_listAlbumFragment"
+            app:destination="@id/listAlbumFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listAlbumFragment"
+        android:name="com.choala.recruitementappdemo.ui.albumList.ListAlbumFragment"
+        android:label="ListAlbumFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_listAlbumFragment_to_listPhotoFragment"
+            app:destination="@id/listPhotoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listPhotoFragment"
+        android:name="com.choala.recruitementappdemo.ui.photoList.ListPhotoFragment"
+        android:label="ListPhotoFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+</navigation>
