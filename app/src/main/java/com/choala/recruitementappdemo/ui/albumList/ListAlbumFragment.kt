@@ -47,9 +47,11 @@ class ListAlbumFragment : Fragment(R.layout.fragment_albumlist) {
     }
 
     private fun setToolbarContent(listAlbumToolBarUiModel: ListAlbumToolBarUiModel?) {
-        val toolbar = (activity as AppCompatActivity).supportActionBar
-        toolbar?.title =
-            listAlbumToolBarUiModel?.toolbarTextTitle?.getConcatenateString(requireContext())
+        if(activity is AppCompatActivity) {
+            val toolbar = (activity as AppCompatActivity).supportActionBar
+            toolbar?.title =
+                listAlbumToolBarUiModel?.toolbarTextTitle?.getConcatenateString(requireContext())
+        }
     }
 
     private fun displayListAlbum(listAlbumContentUiModel: ListAlbumContentUiModel?) {
