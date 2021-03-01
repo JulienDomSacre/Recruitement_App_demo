@@ -1,5 +1,7 @@
 package com.choala.recruitementappdemo.ui.userList
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -7,10 +9,13 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.choala.recruitementappdemo.MainActivity
 import com.choala.recruitementappdemo.R
 import com.choala.recruitementappdemo.ui.common.ViewState
 import com.choala.recruitementappdemo.ui.userList.model.ListUserContentUiModel
@@ -41,8 +46,34 @@ class ListUserFragment : Fragment(R.layout.fragment_userlist) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
         inflater.inflate(R.menu.user_menu, menu)
+
+        val searchView = SearchView((activity as AppCompatActivity).supportActionBar?.themedContext ?: requireContext())
+        menu.findItem(R.id.menu_userList_actionSearch).apply {
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
+            actionView = searchView
+        }
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.filterUser(newText)
+                return false
+            }
+        })
         menu.findItem(R.id.menu_userList_actionSearch).isVisible = toolbarMenuIsVisible
+
+
+        // Associate searchable configuration with the SearchView
+        val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.menu_userList_actionSearch).actionView as SearchView).apply {
+            //setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

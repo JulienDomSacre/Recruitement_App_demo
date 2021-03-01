@@ -1,8 +1,10 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_userList_actionSearch"
         android:icon="@drawable/alert"
-        android:orderInCategory="100"
-        android:title="Search" />
+        android:title="Search"
+        android:visible="true"
+        app:actionViewClass="android.widget.SearchView" />
 </menu>
