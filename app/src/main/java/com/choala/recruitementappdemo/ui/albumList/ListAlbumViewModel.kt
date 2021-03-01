@@ -34,7 +34,7 @@ class ListAlbumViewModel(
 
     fun fetchAlbums(userId: Int) {
         postLoadingState()
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             albumUseCase.getAlbums(userId).collect { result ->
                 uiMutableLiveData.postValue(mapUiScreen(result))
             }

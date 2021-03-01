@@ -21,6 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ListAlbumFragment : Fragment(R.layout.fragment_albumlist) {
     private val viewModel: ListAlbumViewModel by viewModel()
     private val args: ListAlbumFragmentArgs by navArgs()
+    private var snackbar: Snackbar? = null
     private val viewAdapter = ListAlbumAdapter { albumSelected ->
         albumSelected.id.let {
             val toAlbum = ListAlbumFragmentDirections.actionListAlbumFragmentToListPhotoFragment(it)
@@ -35,6 +36,11 @@ class ListAlbumFragment : Fragment(R.layout.fragment_albumlist) {
         viewModel.fetchAlbums(args.id)
     }
 
+    override fun onDetach() {
+        snackbar?.dismiss()
+        super.onDetach()
+    }
+
     private fun observeUiData() {
         viewModel.uiLiveData.map { it.state }.observe(viewLifecycleOwner, ::updateScreenState)
         viewModel.uiLiveData.map { it.data?.errorUiModel }
@@ -47,9 +53,11 @@ class ListAlbumFragment : Fragment(R.layout.fragment_albumlist) {
     }
 
     private fun setToolbarContent(listAlbumToolBarUiModel: ListAlbumToolBarUiModel?) {
-        val toolbar = (activity as AppCompatActivity).supportActionBar
-        toolbar?.title =
-            listAlbumToolBarUiModel?.toolbarTextTitle?.getConcatenateString(requireContext())
+        if (activity is AppCompatActivity) {
+            val toolbar = (activity as AppCompatActivity).supportActionBar
+            toolbar?.title =
+                listAlbumToolBarUiModel?.toolbarTextTitle?.getConcatenateString(requireContext())
+        }
     }
 
     private fun displayListAlbum(listAlbumContentUiModel: ListAlbumContentUiModel?) {
@@ -63,24 +71,26 @@ class ListAlbumFragment : Fragment(R.layout.fragment_albumlist) {
             ListAlbumErrorUiModel.PageError.NetworkError,
             ListAlbumErrorUiModel.PageError.TimeOutError -> {
                 val errorData = errorContent as ListAlbumErrorUiModel.PageError
-                Snackbar.make(
+                snackbar = Snackbar.make(
                     const_albumList_container,
                     errorData.message.getConcatenateString(requireContext()),
                     Snackbar.LENGTH_INDEFINITE
                 ).setAction(errorData.button.getConcatenateString(requireContext())) {
                     viewModel.fetchAlbums(args.id)
-                }.show()
+                }
+                snackbar!!.show()
             }
             ListAlbumErrorUiModel.PageError.EmptyResource,
             ListAlbumErrorUiModel.PageError.UnknownError -> {
                 val errorData = errorContent as ListAlbumErrorUiModel.PageError
-                Snackbar.make(
+                snackbar = Snackbar.make(
                     const_albumList_container,
                     errorData.message.getConcatenateString(requireContext()),
                     Snackbar.LENGTH_INDEFINITE
                 ).setAction(errorData.button.getConcatenateString(requireContext())) {
                     activity?.finish()
-                }.show()
+                }
+                snackbar!!.show()
             }
         }
     }
