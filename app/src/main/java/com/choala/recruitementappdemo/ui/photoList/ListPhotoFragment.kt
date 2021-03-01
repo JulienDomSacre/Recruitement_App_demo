@@ -22,6 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ListPhotoFragment : Fragment(R.layout.fragment_photolist) {
     private val viewModel: ListPhotoViewModel by viewModel()
     private val args: ListPhotoFragmentArgs by navArgs()
+    private var snackbar: Snackbar? = null
     private val viewAdapter = ListPhotoAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,6 +30,11 @@ class ListPhotoFragment : Fragment(R.layout.fragment_photolist) {
         initRecyclerView()
         observeUiData()
         viewModel.fetchPhotos(args.id)
+    }
+
+    override fun onDetach() {
+        snackbar?.dismiss()
+        super.onDetach()
     }
 
     private fun observeUiData() {
@@ -58,24 +64,26 @@ class ListPhotoFragment : Fragment(R.layout.fragment_photolist) {
             ListPhotoErrorUiModel.PageError.NetworkError,
             ListPhotoErrorUiModel.PageError.TimeOutError -> {
                 val errorData = errorContent as ListAlbumErrorUiModel.PageError
-                Snackbar.make(
+                snackbar = Snackbar.make(
                     const_albumList_container,
                     errorData.message.getConcatenateString(requireContext()),
                     Snackbar.LENGTH_INDEFINITE
                 ).setAction(errorData.button.getConcatenateString(requireContext())) {
                     viewModel.fetchPhotos(args.id)
-                }.show()
+                }
+                snackbar!!.show()
             }
             ListPhotoErrorUiModel.PageError.EmptyResource,
             ListPhotoErrorUiModel.PageError.UnknownError -> {
                 val errorData = errorContent as ListAlbumErrorUiModel.PageError
-                Snackbar.make(
+                snackbar = Snackbar.make(
                     const_albumList_container,
                     errorData.message.getConcatenateString(requireContext()),
                     Snackbar.LENGTH_INDEFINITE
                 ).setAction(errorData.button.getConcatenateString(requireContext())) {
                     activity?.finish()
-                }.show()
+                }
+                snackbar!!.show()
             }
         }
     }
