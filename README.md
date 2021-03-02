@@ -9,7 +9,11 @@ Dans les grandes lignes:
 - utilisation de coroutine/flow
 - gestion d'appel API (retrofit)
 - utilisation des lib android Jetpack (Room, Navigation, LifeCycle/LiveData)
-- Injection via Koin (je connais aussi Dagguer2)
+- injection de dépendance via Koin (je connais aussi Dagguer2)
+- BDD en tant que Single Sourth of True
+- application en Single Activity
+
+Il reste évidement plein de chose à faire/améliorer, mais la base est saine.
 
 Il reste 2/3 bug à corriger:
 - sur l'écran user le search peut ne pas s'afficher
